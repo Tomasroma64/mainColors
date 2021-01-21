@@ -1,28 +1,12 @@
 const express = require('express');
 const multer = require('multer');
-
-const exphbs = require('express-handlebars');
-const vibrant = require('node-vibrant')
+const vibrant = require('node-vibrant'); // will be removed shortly
 
 const app = express();
 
 const PORT = 8080;
 
-//app.use(express.static(__dirname + '/public'));
-
-app.engine('.hbs', exphbs({
-  extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
-
-app.get('/', (req, res) => {
-  return res.render('index', {
-    layout: false
-  });
-});
-
-
-
+app.use(express.static('public'));
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -57,12 +41,8 @@ app.post('/upload', async (req, res) => {
         message: palette
       });
     });
-
-
   });
 });
-
-
 
 
 app.listen(PORT, () => {
